@@ -24,6 +24,7 @@ months:
 * [ ] Support Kafka Broker with Storm-Kafka(0.9.0.1) for Kafka Integration.
 * [ ] Support Trident Topology for powerful batch processing.
 * [ ] Including zkServer starter.
+* [ ] Including Distributed RPC
 * [ ] Handling JavaScript on Java 1.8.
 * [ ] Using Apache Kafka, connect other services, devices and server via mqtt and http.
 * [ ] Deploy ENOW with Docker.
