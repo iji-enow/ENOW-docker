@@ -15,18 +15,29 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-
-package org.apache.storm.kafka.spout;
+package com.enow.storm.kafka.test;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.storm.kafka.spout.KafkaSpoutTupleBuilder;
+import org.apache.storm.tuple.Values;
 
-import java.io.Serializable;
 import java.util.List;
 
-/**
- * {@link KafkaSpoutTuplesBuilder} wraps all the logic that builds tuples from {@link ConsumerRecord}s.
- * The logic is provided by the user by implementing the appropriate number of {@link KafkaSpoutTupleBuilder} instances
- */
-public interface KafkaSpoutTuplesBuilder<K,V> extends Serializable {
-    List<Object> buildTuple(ConsumerRecord<K, V> consumerRecord);
+public class TopicsTest0Test1TupleBuilder<K, V> extends KafkaSpoutTupleBuilder<K,V> {
+    /**
+     * @param topics list of topics that use this implementation to build tuples
+     */
+    public TopicsTest0Test1TupleBuilder(String... topics) {
+        super(topics);
+    }
+
+    @Override
+    public List<Object> buildTuple(ConsumerRecord<K, V> consumerRecord) {
+        return new Values(
+//        		consumerRecord.topic(),
+//                consumerRecord.partition(),
+//                consumerRecord.offset(),
+//                consumerRecord.key(),
+                consumerRecord.value());
+    }
 }

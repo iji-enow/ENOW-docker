@@ -16,7 +16,7 @@
  *   limitations under the License.
  */
 
-package org.apache.storm.kafka.spout.test;
+package com.enow.storm.kafka.test;
 
 import org.apache.kafka.common.utils.Utils;
 import org.apache.storm.Config;

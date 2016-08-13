@@ -21,8 +21,8 @@
 		<!-- <relativePath>../../pom.xml</relativePath> -->
 	</parent>
 
-	<artifactId>storm-kafka-client</artifactId>
-	<name>storm-kafka-client</name>
+	<artifactId>enow-storm</artifactId>
+	<name>enow-storm</name>
 
 	<packaging>jar</packaging>
 
@@ -31,6 +31,11 @@
 			<id>Writtic</id>
 			<name>Park Jun Seong</name>
 			<email>writtic@gmail.com</email>
+		</developer>
+		<developer>
+			<id>Kirkee</id>
+			<name>Lee Gun Joon</name>
+			<email>kirkee92@gmail.com</email>
 		</developer>
 	</developers>
 
@@ -43,6 +48,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<!--kafka libraries -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.11</artifactId>
+			<version>0.9.0.1</version>
+		</dependency>
 		<!--test dependencies -->
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -55,17 +65,6 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka-clients</artifactId>
-			<version>0.10.0.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.10</artifactId>
-			<version>0.9.0.1</version>
 		</dependency>
 	</dependencies>
 
@@ -96,7 +95,7 @@
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>org.apache.storm.kafka.spout.test.KafkaSpoutTopologyMainNamedTopics</mainClass>
+									<mainClass>com.enow.storm.kafka.test.EnowTopologyMain</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>

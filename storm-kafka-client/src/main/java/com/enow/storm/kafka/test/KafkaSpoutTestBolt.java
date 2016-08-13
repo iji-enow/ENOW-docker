@@ -16,7 +16,7 @@
  *   limitations under the License.
  */
 
-package org.apache.storm.kafka.spout.test;
+package com.enow.storm.kafka.test;
 import org.apache.kafka.clients.producer.*;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
