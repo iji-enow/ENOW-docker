@@ -21,10 +21,10 @@ months:
 
 
 * [x] Support "org.apache.storm" class packages instead of "backtype.storm"
-* [ ] Support Kafka Broker with Storm-Kafka(0.9.0.1) for Kafka Integration.
+* [x] Support Kafka Broker with Storm-Kafka(0.9.0.1) for Kafka Integration.
 * [ ] Support Trident Topology for powerful batch processing.
-* [ ] Including zkServer starter.
+* [x] Including zkServer starter.
 * [ ] Including Distributed RPC
-* [ ] Handling JavaScript on Java 1.8.
+* [x] Handling JavaScript on Java 1.8.
 * [ ] Using Apache Kafka, connect other services, devices and server via mqtt and http.
-* [ ] Deploy ENOW with Docker.
+* [x] Deploy ENOW with Docker.
