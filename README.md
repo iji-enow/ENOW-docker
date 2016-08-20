@@ -1,4 +1,4 @@
-enow-storm ![travis](https://travis-ci.org/ENOW-IJI/enow-storm.svg?branch=master)
+ENOW-Storm ![travis](https://travis-ci.org/ENOW-IJI/enow-storm.svg?branch=master)
 =========================
 
 
@@ -31,13 +31,6 @@ and </br> [https://github.com/enow/storm-docker](https://github.com/enow/storm-d
 ## Build for running on a Storm cluster:
 
 - ```mvn clean package -P cluster```
-
-## Run a docker container
-Find the forwarded ssh port for the container you wish to connect to (use `docker-compose ps`)
-
-    $ ssh root@`docker-machine ip` -p $CONTAINER_PORT(22)
-
-The password is '1q2w3e!@#$' </br>from: https://registry.hub.docker.com/u/enow/main/dockerfile.
 
 ## Running the test topologies locally
 

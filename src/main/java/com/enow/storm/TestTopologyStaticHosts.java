@@ -29,7 +29,6 @@ public class TestTopologyStaticHosts {
         public void execute(Tuple tuple, BasicOutputCollector collector) {
             System.out.println(tuple.toString());
         }
-
     }
 
     public static void main(String[] args) throws Exception {
@@ -50,7 +49,7 @@ public class TestTopologyStaticHosts {
         String topic = "test";
         BrokerHosts brokerHosts = new ZkHosts(zkConnString);
 
-        SpoutConfig kafkaConfig = new SpoutConfig(brokerHosts,topic, "/"+topic, "storm");
+        SpoutConfig kafkaConfig = new SpoutConfig(brokerHosts, topic, "/"+topic, "storm");
        
         kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
         kafkaConfig.startOffsetTime = -1;
@@ -71,6 +70,7 @@ public class TestTopologyStaticHosts {
             String dockerIp = args[2];
             config.setNumWorkers(2);
             config.setMaxTaskParallelism(5);
+            config.put(Config.NIMBUS_SEEDS, Arrays.asList(dockerIp));
             config.put(Config.NIMBUS_THRIFT_PORT, 6627);
             config.put(Config.STORM_ZOOKEEPER_PORT, 2181);
             config.put(Config.STORM_ZOOKEEPER_SERVERS, Arrays.asList(dockerIp));

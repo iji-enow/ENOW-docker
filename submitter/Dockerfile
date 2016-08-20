@@ -1,11 +1,11 @@
 from enow/storm
 MAINTAINER writtic <writtic@gmail.com>
 
-ADD hellostorm-0.0.1-SNAPSHOT.jar $STORM_HOME/extlib/hellostorm-0.0.1-SNAPSHOT.jar
+ADD target/enow-storm-1.0.jar $STORM_HOME/extlib/enow-storm-1.0.jar
 
 WORKDIR /usr/share/storm
 
-ADD hellostorm-0.0.1-SNAPSHOT.jar topology.jar
+ADD target/enow-storm-1.0.jar topology.jar
 
 # add startup script
 ADD entrypoint.sh entrypoint.sh
