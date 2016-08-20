@@ -1,18 +1,9 @@
-writtic/enow-storm
+enow-storm ![travis](https://travis-ci.org/ENOW-IJI/enow-storm.svg?branch=master)
 =========================
 
-Test project for enow-storm based on information provided in and referenced by:
 
-- [https://github.com/nathanmarz/storm-contrib/blob/master/storm-kafka/src/jvm/storm/kafka/TestTopology.java](https://github.com/nathanmarz/storm-contrib/blob/master/storm-kafka/src/jvm/storm/kafka/TestTopology.java)
-- [https://github.com/nathanmarz/storm/wiki/Trident-tutorial](https://github.com/nathanmarz/storm/wiki/Trident-tutorial)
-- [https://github.com/nathanmarz/storm/wiki/Trident-state](https://github.com/nathanmarz/storm/wiki/Trident-state)
-- [https://cwiki.apache.org/confluence/display/KAFKA/0.8.0+Producer+Example](https://cwiki.apache.org/confluence/display/KAFKA/0.8.0+Producer+Example)
-- [https://github.com/wurstmeister/storm-kafka-0.8-plus-test](https://github.com/wurstmeister/storm-kafka-0.8-plus-test)
-
-Also contains an attempt at a sample implementation of trident state based on [Hazelcast](http://www.hazelcast.com/)
-
-
-## Environment setup with [Docker](https://www.docker.io/)
+Environment setup with [Docker](https://www.docker.io/)
+------------------------------
 
 If you are using a Mac follow the instructions [here](https://docs.docker.com/installation/mac/) to setup a docker environment.
 
@@ -78,3 +69,17 @@ Alternatively use the kafka console producer from within the kafka shell (see ab
 To run a DRPC query, start the DrpcClient (built in local mode)
 
 - ```java -cp target/enow-storm-1.0.jar com.enow.storm.tools.DrpcClient <dockerIp> 3772```
+
+
+References
+----------
+
+Test project for enow-storm based on information provided in and referenced by:
+
+- [https://github.com/nathanmarz/storm-contrib/blob/master/storm-kafka/src/jvm/storm/kafka/TestTopology.java](https://github.com/nathanmarz/storm-contrib/blob/master/storm-kafka/src/jvm/storm/kafka/TestTopology.java)
+- [https://github.com/nathanmarz/storm/wiki/Trident-tutorial](https://github.com/nathanmarz/storm/wiki/Trident-tutorial)
+- [https://github.com/nathanmarz/storm/wiki/Trident-state](https://github.com/nathanmarz/storm/wiki/Trident-state)
+- [https://cwiki.apache.org/confluence/display/KAFKA/0.8.0+Producer+Example](https://cwiki.apache.org/confluence/display/KAFKA/0.8.0+Producer+Example)
+- [https://github.com/wurstmeister/storm-kafka-0.8-plus-test](https://github.com/wurstmeister/storm-kafka-0.8-plus-test)
+
+Also contains an attempt at a sample implementation of trident state based on [Hazelcast](http://www.hazelcast.com/)
