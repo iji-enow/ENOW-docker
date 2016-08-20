@@ -12,16 +12,17 @@ If you are using a Mac follow the instructions [here](https://docs.docker.com/in
 - Install [storm](https://storm.incubator.apache.org/downloads.html) (so you can upload your topology to the test cluster)
 
 - Start the test environment
-    - ```docker-compose up```
-- Start a kafka shell
+    - ```docker-compose -p storm up```
+- Start a kafka shell and From within the shell, create a topic
     - ```start-kafka-shell.sh <Docker Ip> <Zookeeper>```
-- From within the shell, create a topic
     - ```$KAFKA_HOME/bin/kafka-topics.sh --create --topic storm-sentence --partitions 2 --zookeeper $ZK --replication-factor 1```
--
+- Or just add ```environment: KAFKA_CREATE_TOPICS: "test:3:1"``` in kafka of docker-compose
+- And when the storm ui is available create another window then Start the topology builder
+    - ```docker-compose -p storm -f submitter.yml build```
+    - ```docker-compose -p storm -f submitter.yml up```
 
 - For more details and troubleshooting see [https://github.com/enow/kafka-docker](https://github.com/enow/kafka-docker) </br>
 and </br> [https://github.com/enow/storm-docker](https://github.com/enow/storm-docker)
-
 
 ## Build for running locally:
 

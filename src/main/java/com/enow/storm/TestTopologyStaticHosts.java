@@ -43,7 +43,10 @@ public class TestTopologyStaticHosts {
         Config config = new Config();
         config.setDebug(true);
         config.put(Config.TOPOLOGY_MAX_SPOUT_PENDING, 1);
-        String zkConnString = "localhost:2181";
+        // topology submit
+        String zkConnString = "192.168.99.100:2181";
+        // local cluster mode
+        // String zkConnString = "localhost:2181";
         String topic = "test";
         BrokerHosts brokerHosts = new ZkHosts(zkConnString);
 
@@ -62,7 +65,7 @@ public class TestTopologyStaticHosts {
         builder.setBolt("kafka-bolt", new KafkaSpoutTestBolt()).allGrouping("execute-bolt");
         
         //builder.setBolt("print", new PrinterBolt()).shuffleGrouping("words");
-        /*
+        
         if (args != null && args.length > 1) {
             String name = args[1];
             String dockerIp = args[2];
@@ -76,7 +79,7 @@ public class TestTopologyStaticHosts {
             LocalCluster cluster = new LocalCluster();
             cluster.submitTopology("test", config, builder.createTopology());
         }
-        */
+        
         
         LocalCluster cluster = new LocalCluster();
         cluster.submitTopology("test", config, builder.createTopology());
