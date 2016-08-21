@@ -34,12 +34,15 @@ and </br> [https://github.com/enow/storm-docker](https://github.com/enow/storm-d
 
 ## Running the test topologies locally
 
+We'd recommand you to use IDE like Eclipse or IntelliJ but you can also run the test topologies locally with commands below
+
 - ```java -cp target/enow-storm-1.0.jar com.enow.storm.trident.SentenceAggregationTopology <kafkaZookeeper>```
 - ```java -cp target/enow-storm-1.0.jar com.enow.storm.KafkaSpoutTestTopology <kafkaZookeeper>```
 - ```java -cp target/enow-storm-1.0.jar com.enow.storm.TestTopologyStaticHosts```
 
 ## Running the test topologies on a storm cluster
 
+Local topology can not communicate with other services. If you want storm to connect the others, you'd better run the test topologies on a storm cluster.
 
 - ```storm jar target/enow-storm-1.0.jar com.enow.storm.trident.SentenceAggregationTopology <kafkaZookeeper> sentences <dockerIp>```
 - ```storm jar target/enow-storm-1.0.jar com.enow.storm.KafkaSpoutTestTopology <kafkaZookeeper> sentences <dockerIp>```
