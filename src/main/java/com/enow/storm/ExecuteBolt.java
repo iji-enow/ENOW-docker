@@ -32,9 +32,11 @@ public class ExecuteBolt extends BaseRichBolt {
     public void execute(Tuple input) {
     	final String msg = input.getValues().toString();
     	String word = msg.substring(1, msg.length() - 1);
+    	/*
     	String function = word.substring(1,word.length());
     	function = function.substring(10,function.length());
     	word = word.substring(0,1);
+    	*/
     	
     	/*
     	String msgWord = input.getStringByField("word");
@@ -44,15 +46,6 @@ public class ExecuteBolt extends BaseRichBolt {
     	String function = msgFunction.substring(1, msgFunction.length() - 1);
     	*/
     	
-    	int result = 0;
-    	
-    	JythonObjectFactory factory = JythonObjectFactory.getInstance();
-		
-		
-		BuildingType building = (BuildingType)factory.createObject(BuildingType.class, "Building");
-		building.set(Integer.parseInt(word));
-		result = building.get();
-		
 		//String tmp = "word = " + word + "result = " + result + "function = " + function;
 		
 		
@@ -60,32 +53,30 @@ public class ExecuteBolt extends BaseRichBolt {
 	    {
 	        return;
 	    }
-	
-	    MongoClient mongoClient = new MongoClient( "127.0.0.1",27017 );
 	    
-	    //WriteConcern writeConcern=new WriteConcern();
+	    /*
+	    MongoClient mongoClient = new MongoClient( "127.0.0.1",27017 );
+	  
 	    mongoClient.setWriteConcern(WriteConcern.ACKNOWLEDGED);
 	    MongoDatabase db = mongoClient.getDatabase("word");
 	    MongoCollection<Document> collection = db.getCollection("word");
-	    collection.insertOne(new Document("execute word",Integer.parseInt(word)));
-	    collection.insertOne(new Document("execute function",function));
-	    collection.insertOne(new Document("execute result",result));
+	    */
+	    //collection.insertOne(new Document("execute word",word));
+	    //collection.insertOne(new Document("execute function",function));
+	    //collection.insertOne(new Document("execute result",result));
 	    
 	    JsonObject json = null;
         String webhook = null;
         Connect con = new Connect("https://hooks.slack.com/services/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");
 
+        
         json = new JsonObject();
-        json.addProperty("text","execute word : " + Integer.parseInt(word));
-        webhook = con.post(con.getURL(), json);
-        json.addProperty("text","execute function : " + function);
-        webhook = con.post(con.getURL(), json);
-        json.addProperty("text","execute result : " + result);
+        json.addProperty("text","word : " + word);
         webhook = con.post(con.getURL(), json);
 	    
-	    mongoClient.close();
+	    //mongoClient.close();
 		
-		collector.emit(new Values(String.valueOf(result)));
+		collector.emit(new Values(word));
 		try {
 			LOG.debug("input = [" + input + "]");
 			collector.ack(input);

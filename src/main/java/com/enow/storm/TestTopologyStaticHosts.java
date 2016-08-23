@@ -29,6 +29,7 @@ public class TestTopologyStaticHosts {
         public void execute(Tuple tuple, BasicOutputCollector collector) {
             System.out.println(tuple.toString());
         }
+
     }
 
     public static void main(String[] args) throws Exception {
@@ -42,14 +43,11 @@ public class TestTopologyStaticHosts {
         Config config = new Config();
         config.setDebug(true);
         config.put(Config.TOPOLOGY_MAX_SPOUT_PENDING, 1);
-        // topology submit
-        String zkConnString = "192.168.99.100:2181";
-        // local cluster mode
-        // String zkConnString = "localhost:2181";
+        String zkConnString = "localhost:2181";
         String topic = "test";
         BrokerHosts brokerHosts = new ZkHosts(zkConnString);
 
-        SpoutConfig kafkaConfig = new SpoutConfig(brokerHosts, topic, "/"+topic, "storm");
+        SpoutConfig kafkaConfig = new SpoutConfig(brokerHosts,topic, "/"+topic, "storm");
        
         kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
         kafkaConfig.startOffsetTime = -1;
@@ -58,19 +56,19 @@ public class TestTopologyStaticHosts {
         builder.setSpout("kafka-spout", new KafkaSpout(kafkaConfig), 10);
         builder.setBolt("read-write-mongo-bolt", new ReadWriteMongoDBBolt()).allGrouping("kafka-spout");
         builder.setBolt("execute-bolt", new ExecuteBolt()).allGrouping("read-write-mongo-bolt");
+        builder.setBolt("python-bolt", new PythonBolt()).allGrouping("execute-bolt");
         //builder.setBolt("read-mongo-bolt", new ReadMongoDBBolt()).allGrouping("write-mongo-bolt");
         //builder.setBolt("read-mongo-bolt", new ReadMongoDBBolt()).allGrouping("write-mongo-bolt");
         //builder.setBolt("write-mongo-bolt", new WriteMongoDBBolt()).allGrouping("read-mongo-bolt");
-        builder.setBolt("kafka-bolt", new KafkaSpoutTestBolt()).allGrouping("execute-bolt");
+        builder.setBolt("kafka-bolt", new KafkaSpoutTestBolt()).allGrouping("python-bolt");
         
         //builder.setBolt("print", new PrinterBolt()).shuffleGrouping("words");
-        
+        /*
         if (args != null && args.length > 1) {
             String name = args[1];
             String dockerIp = args[2];
             config.setNumWorkers(2);
             config.setMaxTaskParallelism(5);
-            config.put(Config.NIMBUS_SEEDS, Arrays.asList(dockerIp));
             config.put(Config.NIMBUS_THRIFT_PORT, 6627);
             config.put(Config.STORM_ZOOKEEPER_PORT, 2181);
             config.put(Config.STORM_ZOOKEEPER_SERVERS, Arrays.asList(dockerIp));
@@ -79,7 +77,7 @@ public class TestTopologyStaticHosts {
             LocalCluster cluster = new LocalCluster();
             cluster.submitTopology("test", config, builder.createTopology());
         }
-        
+        */
         
         LocalCluster cluster = new LocalCluster();
         cluster.submitTopology("test", config, builder.createTopology());

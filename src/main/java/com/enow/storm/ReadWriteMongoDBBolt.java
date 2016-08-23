@@ -41,7 +41,6 @@ public class ReadWriteMongoDBBolt extends BaseRichBolt {
     
     public void prepare(Map MongoConf, TopologyContext context, OutputCollector collector) {
         this.collector = collector;
-        tmp = "function not found";
     }
 
     @Override
@@ -57,12 +56,13 @@ public class ReadWriteMongoDBBolt extends BaseRichBolt {
 
 	    MongoClient mongoClient = new MongoClient( "127.0.0.1",27017 );
 	    
-	    //WriteConcern writeConcern=new WriteConcern();
+	    
 	    mongoClient.setWriteConcern(WriteConcern.ACKNOWLEDGED);
 	    MongoDatabase dbWrite = mongoClient.getDatabase("word");
 	    MongoCollection<Document> collection = dbWrite.getCollection("word");
 	    collection.insertOne(new Document("word",word));
 	    
+	    /*
 	    FindIterable<Document> iterable = collection.find(new Document("function1", new Document("$exists",true)));
 	    
 	    iterable.forEach(new Block<Document>() {
@@ -71,9 +71,11 @@ public class ReadWriteMongoDBBolt extends BaseRichBolt {
 	        	tmp = document.toString();
 	        }
 	    });
+	    */
 	    
 	    mongoClient.close();
-		
+	    
+		/*
 	    if(tmp.compareTo("function not found") == 0){
 	    	
 	    }else{
@@ -81,8 +83,8 @@ public class ReadWriteMongoDBBolt extends BaseRichBolt {
 	    }
 	    
 	    word = word + tmp;
-		
-		//collector.emit(new Values(word,tmp));
+		*/
+	    
 		collector.emit(new Values(word));
 		
 		try {
@@ -95,7 +97,6 @@ public class ReadWriteMongoDBBolt extends BaseRichBolt {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-    	//declarer.declare(new Fields("word","function"));
     	declarer.declare(new Fields("word"));
     }
 }
