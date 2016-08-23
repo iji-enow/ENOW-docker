@@ -10,19 +10,18 @@ If you are using a Mac follow the instructions [here](https://docs.docker.com/in
 - Install [docker-compose](http://docs.docker.com/compose/install/)
 
 - Install [storm](https://storm.incubator.apache.org/downloads.html) (so you can upload your topology to the test cluster)
-
-- Start the test environment
+- Start the test environment:
     - ```docker-compose -p storm up```
-- Start a kafka shell and From within the shell, create a topic
-    - ```start-kafka-shell.sh <Docker Ip> <Zookeeper>```
-    - ```$KAFKA_HOME/bin/kafka-topics.sh --create --topic storm-sentence --partitions 2 --zookeeper $ZK --replication-factor 1```
-- Or just add ```environment: KAFKA_CREATE_TOPICS: "test:3:1"``` in kafka of docker-compose
-- And when the storm ui is available create another window then Start the topology builder
+- Start a kafka shell and From within the shell, create a topic:
+    - Add ```environment: KAFKA_CREATE_TOPICS: "test:3:1"``` in kafka of docker-compose.yml
+- When the storm ui is available create another window then Start the topology builder:
     - ```docker-compose -p storm -f submitter.yml build```
-    - ```docker-compose -p storm -f submitter.yml up```
+    - ```docker-compose -p storm -f submitter.yml up```</br>
 
-- For more details and troubleshooting see [https://github.com/enow/kafka-docker](https://github.com/enow/kafka-docker) </br>
-and </br> [https://github.com/enow/storm-docker](https://github.com/enow/storm-docker)
+For more details and troubleshooting see:
+- [https://github.com/enow/kafka-docker](https://github.com/enow/kafka-docker) </br>
+and </br>
+- [https://github.com/enow/storm-docker](https://github.com/enow/storm-docker)
 
 ## Build for running locally:
 
@@ -44,12 +43,25 @@ We'd recommand you to use IDE like Eclipse or IntelliJ but you can also run the 
 
 Local topology can not communicate with other services. If you want storm to connect the others, you'd better run the test topologies on a storm cluster.
 
-- ```storm jar target/enow-storm-1.0.jar com.enow.storm.trident.SentenceAggregationTopology <kafkaZookeeper> sentences <dockerIp>```
-- ```storm jar target/enow-storm-1.0.jar com.enow.storm.KafkaSpoutTestTopology <kafkaZookeeper> sentences <dockerIp>```
+- ```docker-compose -p storm -f submitter.yml build```
+- ```docker-compose -p storm -f submitter.yml up```</br>
 
 The Storm UI will be available under: ```http://<dockerIp>:8080/```
 
 The Logviewer will be available under: ```http://<dockerIp>:8000/``` e.g. ```http://<dockerIp>:8000/log?file=supervisor.log```
+
+## Automatically create topics
+
+If you want to have kafka-docker automatically create topics in Kafka during
+creation, a ```KAFKA_CREATE_TOPICS``` environment variable can be
+added in ```docker-compose.yml```.
+
+Here is an example snippet from ```docker-compose.yml```:
+
+    environment:
+        KAFKA_CREATE_TOPICS: "Topic1:2:3,Topic2:3:1"
+```Topic 1``` will have 2 partition and 3 replicas,<br/>
+```Topic 2``` will have 3 partition and 1 replica.
 
 ## Producing data
 
