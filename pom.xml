@@ -30,15 +30,15 @@
 		</developer>
 	</developers>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<!--<properites> -->
+	<!--<kafka.version>0.9.0.1</kafka.version> -->
+	<!--<storm.version>1.0.2</storm.version> -->
+	<!--<hazelcast.version>3.6.4</hazelcast.version> -->
+	<!--<commons.collections.version>3.2.1</commons.collections.version> -->
+	<!--<clojure.version>1.7.0</clojure.version> -->
+	<!--<log4j-over-slf4j.version>1.6.6</log4j-over-slf4j.version -->
+	<!--</properites> -->
 	<dependencies>
-		<dependency>
-			<groupId>org.python</groupId>
-			<artifactId>jython</artifactId>
-			<version>2.7.1b3</version>
-		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
@@ -84,6 +84,12 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<!-- Where the Python bits are kept -->
+				<directory>${basedir}/multilang</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
