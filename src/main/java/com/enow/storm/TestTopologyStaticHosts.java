@@ -9,28 +9,12 @@ import org.apache.storm.LocalCluster;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.kafka.*;
 import org.apache.storm.spout.SchemeAsMultiScheme;
-import org.apache.storm.topology.BasicOutputCollector;
-import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.TopologyBuilder;
-import org.apache.storm.topology.base.BaseBasicBolt;
-import org.apache.storm.tuple.Tuple;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestTopologyStaticHosts {
-
-
-    public static class PrinterBolt extends BaseBasicBolt {
-
-        public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        }
-
-        public void execute(Tuple tuple, BasicOutputCollector collector) {
-            System.out.println(tuple.toString());
-        }
-
-    }
 
     public static void main(String[] args) throws Exception {
 
@@ -39,16 +23,16 @@ public class TestTopologyStaticHosts {
         hostsAndPartitions.addPartition(0, new Broker("localhost", 9092));
         BrokerHosts brokerHosts = new StaticHosts(hostsAndPartitions);
         */
-    	
+
         Config config = new Config();
         config.setDebug(true);
         config.put(Config.TOPOLOGY_MAX_SPOUT_PENDING, 1);
         String zkConnString = "192.168.99.100:2181";
         String topic = "test";
-        BrokerHosts brokerHosts = new ZkHosts(zkConnString);
+        // BrokerHosts brokerHosts = new ZkHosts(zkConnString);
+        ZkHosts brokerHosts = new ZkHosts(zkConnString);
+        SpoutConfig kafkaConfig = new SpoutConfig(brokerHosts, topic, "/"+topic, "storm");
 
-        SpoutConfig kafkaConfig = new SpoutConfig(brokerHosts,topic, "/"+topic, "storm");
-       
         kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
         kafkaConfig.startOffsetTime = -1;
 
@@ -61,10 +45,10 @@ public class TestTopologyStaticHosts {
         //builder.setBolt("read-mongo-bolt", new ReadMongoDBBolt()).allGrouping("write-mongo-bolt");
         //builder.setBolt("write-mongo-bolt", new WriteMongoDBBolt()).allGrouping("read-mongo-bolt");
         builder.setBolt("kafka-bolt", new KafkaSpoutTestBolt()).allGrouping("python-bolt");
-        
+
         //builder.setBolt("print", new PrinterBolt()).shuffleGrouping("words");
         //If there are arguments, we are running on a cluster
-        if (args != null) {
+        if (args != null && args.length > 0) {
             // nimbus urls
             List<String> nimbus_seeds = new ArrayList<String>();
             nimbus_seeds.add("192.168.99.100");
@@ -74,7 +58,7 @@ public class TestTopologyStaticHosts {
             zookeeper_servers.add("192.168.99.100");
             zookeeper_servers.add("172.17.0.2");
 
-            String name = args[1];
+            String name = args[0];
 
             config.setNumWorkers(2);
             config.setMaxTaskParallelism(5);
@@ -87,9 +71,7 @@ public class TestTopologyStaticHosts {
             LocalCluster cluster = new LocalCluster();
             cluster.submitTopology("test", config, builder.createTopology());
         }
-        
         //Thread.sleep(600000);
 
     }
 }
-
