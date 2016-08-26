@@ -37,7 +37,7 @@ We'd recommand you to use IDE like Eclipse or IntelliJ but you can also run the 
 
 - ```java -cp target/enow-storm-1.0.jar com.enow.storm.trident.SentenceAggregationTopology <kafkaZookeeper>```
 - ```java -cp target/enow-storm-1.0.jar com.enow.storm.KafkaSpoutTestTopology <kafkaZookeeper>```
-- ```java -cp target/enow-storm-1.0.jar com.enow.storm.TestTopologyStaticHosts```
+- ```java -cp target/enow-storm-1.0.jar com.enow.storm.EnowTopology```
 
 ## Running the test topologies on a storm cluster
 

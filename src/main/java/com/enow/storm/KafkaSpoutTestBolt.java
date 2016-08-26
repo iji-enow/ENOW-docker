@@ -19,13 +19,12 @@ public class KafkaSpoutTestBolt extends BaseRichBolt {
     private OutputCollector collector;
     private Properties props;
     @Override
-    
     public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
         this.collector = collector;
 		props = new Properties();
 		props.put("producer.type", "sync");
 		props.put("batch.size", "1");
-		props.put("bootstrap.servers", "localhost:9092");
+		props.put("bootstrap.servers", "192.168.99.100:9092");
 		props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 		props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
     }
