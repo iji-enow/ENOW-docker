@@ -21,9 +21,9 @@ If you are using a Mac follow the instructions [here](https://docs.docker.com/in
     - ```docker-compose -p storm -f submitter.yml up```</br>
 
 For more details and troubleshooting see:
-- [https://github.com/enow/kafka-docker](https://github.com/enow/kafka-docker) </br>
+- [https://github.com/enow/docker-kafka](https://github.com/enow/docker-kafka) </br>
 and </br>
-- [https://github.com/enow/storm-docker](https://github.com/enow/storm-docker)
+- [https://github.com/enow/docker-storm](https://github.com/enow/docker-storm)
 
 ## Build for running locally:
 

@@ -15,6 +15,9 @@ services:
     ports:
       - "6627:6627"
       - "22"
+    depends_on:
+      - zookeeper
+
   supervisor:
     image: enow/storm-supervisor
     restart: always
@@ -41,9 +44,8 @@ services:
       - "9092:9092"
     environment:
       KAFKA_CREATE_TOPICS: "test:3:1,onlytest:3:1"
-      KAFKA_ZOOKEEPER_CONNECT: 192.168.99.100:2181
-      KAFKA_ADVERTISED_HOST_NAME: 192.168.99.100
-      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.0.151
     depends_on:
       - zookeeper
     volumes:
@@ -51,7 +53,7 @@ services:
   topology:
     build: ./submitter
     container_name: topology
-    # command: exec bin/storm jar ./topology.jar com.enow.storm.TestTopologyStaticHosts Enow
+    entrypoint: wait-for-it.sh nimbus:6627 -- COMMAND /usr/bin/start-supervisor.sh
     depends_on:
       - nimbus
 networks:

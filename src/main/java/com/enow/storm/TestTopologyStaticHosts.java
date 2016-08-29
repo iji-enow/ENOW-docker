@@ -16,7 +16,6 @@ import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.TopologyBuilder;
 import org.apache.storm.topology.base.BaseBasicBolt;
 import org.apache.storm.tuple.Tuple;
-import org.apache.storm.kafka.trident.GlobalPartitionInformation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,38 +61,29 @@ public class TestTopologyStaticHosts {
         //builder.setBolt("write-mongo-bolt", new WriteMongoDBBolt()).allGrouping("read-mongo-bolt");
         builder.setBolt("kafka-bolt", new KafkaSpoutTestBolt()).allGrouping("read-write-mongo-bolt");
         //builder.setBolt("kafka-bolt", new KafkaSpoutTestBolt()).allGrouping("execute-bolt");
-
-
+        Config config = new Config();
         //builder.setBolt("print", new PrinterBolt()).shuffleGrouping("words");
-        /*
         if (args != null && args.length > 1) {
             String name = args[1];
             String dockerIp = args[2];
-            config.setNumWorkers(2);
-            config.setMaxTaskParallelism(5);
+            // nimbus url
+            List<String> nimbus_seeds = new ArrayList<String>();
+            nimbus_seeds.add("192.168.99.100");
+            // zookeeper url
+            List<String> zookeeper_servers = new ArrayList<String>();
+            zookeeper_servers.add("192.168.99.100");
+            config.put(Config.NIMBUS_SEEDS, nimbus_seeds);
             config.put(Config.NIMBUS_THRIFT_PORT, 6627);
             config.put(Config.STORM_ZOOKEEPER_PORT, 2181);
-            config.put(Config.STORM_ZOOKEEPER_SERVERS, Arrays.asList(dockerIp));
+            config.put(Config.STORM_ZOOKEEPER_SERVERS, zookeeper_servers);
+            config.setDebug(true);
+            config.setNumWorkers(5);
             StormSubmitter.submitTopology(name, config, builder.createTopology());
         } else {
             LocalCluster cluster = new LocalCluster();
             cluster.submitTopology("test", config, builder.createTopology());
         }
-        */
-        Config config = new Config();
-        List<String> nimbus_seeds = new ArrayList<String>();
-        // nimbus url
-        nimbus_seeds.add("192.168.99.100");
-        // zookeeper url
-        List<String> zookeeper_servers = new ArrayList<String>();
-        zookeeper_servers.add("192.168.99.100");
-        config.put(Config.NIMBUS_SEEDS, nimbus_seeds);
-        config.put(Config.NIMBUS_THRIFT_PORT, 6627);
-        config.put(Config.STORM_ZOOKEEPER_PORT, 2181);
-        config.put(Config.STORM_ZOOKEEPER_SERVERS, zookeeper_servers);
-        config.setDebug(true);
-        config.setNumWorkers(5);
-        StormSubmitter.submitTopology("test", config, builder.createTopology());
+
 
         //Thread.sleep(600000);
 

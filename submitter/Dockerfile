@@ -1,11 +1,14 @@
 FROM enow/storm
 MAINTAINER writtic <writtic@gmail.com>
+
 ADD ./enow-storm-1.0.jar $STORM_HOME/extlib/enow-storm-1.0.jar
+ADD ./enow-storm-1.0.jar $STORM_HOME/topology.jar
 WORKDIR /usr/share/storm
-ADD ./enow-storm-1.0.jar topology.jar
 
-# add startup script
-ADD entrypoint.sh entrypoint.sh
-RUN chmod +x entrypoint.sh
+RUN /usr/bin/config-supervisord.sh jar ./topology.jar com.enow.storm.TestTopologyStaticHosts
 
-ENTRYPOINT ["/usr/share/storm/entrypoint.sh"]
+ADD wait-for-it.sh $STORM_HOME/wait-for-it.sh
+RUN chmod +x $STORM_HOME/wait-for-it.sh
+
+
+ENTRYPOINT ["/usr/share/storm/wait-for-it.sh"]
