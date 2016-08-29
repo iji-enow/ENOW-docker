@@ -1,5 +1,4 @@
-package com.enow.storm;
-
+package com.enow.storm.TriggerTopology;
 import org.apache.kafka.clients.producer.*;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
@@ -14,10 +13,12 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.Properties;
 
-public class KafkaSpoutTestBolt extends BaseRichBolt {
-    protected static final Logger LOG = LoggerFactory.getLogger(KafkaSpoutTestBolt.class);
+public class CallingKafkaBolt extends BaseRichBolt {
+    protected static final Logger LOG = LoggerFactory.getLogger(CallingKafkaBolt.class);
     private OutputCollector collector;
     private Properties props;
+    private Producer<String, String> producer;
+    private TopicStructure ts;
     @Override
     
     public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
@@ -28,20 +29,33 @@ public class KafkaSpoutTestBolt extends BaseRichBolt {
 		props.put("bootstrap.servers", "localhost:9092");
 		props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 		props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+		producer =  new KafkaProducer<String, String>(props);
+		ts = new TopicStructure();
     }
 
     @Override
-    public void execute(Tuple input) {
-    	Producer<String, String> producer = new KafkaProducer<String, String>(props);
-    	final String msg = input.getValues().toString();
-    	String word = msg.substring(1, msg.length() - 1);
-//		String[] words = msg.split(" ");
-//		for(String word:words){
-			System.out.println("Word: " + word);
-			collector.emit(new Values(word));
-			ProducerRecord<String, String> data = new ProducerRecord<String, String>("onlytest", word);
-			producer.send(data);
-//		}
+    public void execute(Tuple input) {	
+    	if(null == input.getValueByField("topic"))
+ 	    {
+ 	        return;
+ 	    }else if((null == input.getStringByField("msg") || input.getStringByField("msg").length() == 0))
+ 	    {
+ 	        return;
+ 	    }
+    	
+    	
+    	ts = (TopicStructure)input.getValueByField("topic");
+    	final String msg = input.getStringByField("msg");
+    	
+    	//final String topic = input.getStringByField("topic");
+    	//final String msg = input.getStringByField("msg");
+    	//.substring(1,input.getValues().toString().length() - 1)
+    	
+    	//final String inputMsg = input.getValues().toString().substring(1, input.getValues().toString().length() - 1);
+    	
+		ProducerRecord<String, String> data = new ProducerRecord<String, String>("trigger", ts.getAll() + " msg : " + msg);
+		producer.send(data);
+
 		try {
 			LOG.debug("input = [" + input + "]");
 			collector.ack(input);
@@ -52,6 +66,5 @@ public class KafkaSpoutTestBolt extends BaseRichBolt {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-    	declarer.declare(new Fields("word"));
     }
 }

@@ -10,6 +10,8 @@ If you are using a Mac follow the instructions [here](https://docs.docker.com/in
 - Install [docker-compose](http://docs.docker.com/compose/install/)
 
 - Install [storm](https://storm.incubator.apache.org/downloads.html) (so you can upload your topology to the test cluster)
+- Create the custom test network for Apache Storm
+    - ```docker network create storm```
 - Start the test environment:
     - ```docker-compose -p storm up```
 - Start a kafka shell and From within the shell, create a topic:
