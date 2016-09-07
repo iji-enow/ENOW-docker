@@ -1,4 +1,21 @@
+# Enable JAVA support
 language: java
-
+# Compiler selection
+jdk:
+  - oraclejdk8
+  - openjdk7
+install: /bin/bash ./dev-tools/travis/travis-install.sh `pwd`
+script: /bin/bash ./dev-tools/travis/travis-script.sh `pwd` $MODULES
 notifications:
+  email: false
   slack: ijiteam:E9Rr8nKzl9hTppiVyvYAvzsZ
+sudo: false
+cache:
+  directories:
+    - "$HOME/.m2/repository"
+branches:
+  only:
+  - master
+env:
+  global:
+  - LANG="en_US.UTF-8"

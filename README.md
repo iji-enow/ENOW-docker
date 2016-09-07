@@ -1,4 +1,4 @@
-ENOW-Storm ![travis](https://travis-ci.org/ENOW-IJI/enow-storm.svg?branch=master) ![Maven Version](https://maven-badges.herokuapp.com/maven-central/org.apache.storm/storm-core/badge.svg)
+ENOW-Storm ![travis](https://travis-ci.org/ENOW-IJI/enow.svg?branch=master) ![Maven Version](https://maven-badges.herokuapp.com/maven-central/org.apache.storm/storm-core/badge.svg)
 =========================
 
 
