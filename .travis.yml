@@ -8,7 +8,6 @@ install: /bin/bash ./dev-tools/travis/travis-install.sh `pwd`
 script: /bin/bash ./dev-tools/travis/travis-script.sh `pwd` $MODULES
 notifications:
   email: false
-  slack: ijiteam:E9Rr8nKzl9hTppiVyvYAvzsZ
 sudo: false
 cache:
   directories:
@@ -18,4 +17,4 @@ branches:
   - master
 env:
   global:
-  - LANG="en_US.UTF-8"
+  - LANG="ko_KR.utf8"
