@@ -7,45 +7,41 @@ import org.apache.storm.kafka.*;
 import org.apache.storm.spout.SchemeAsMultiScheme;
 import org.apache.storm.topology.TopologyBuilder;
 
-
 public class ActionTopology {
     public static void main(String[] args) throws Exception {
-    	BasicConfigurator.configure();
-        Config config = new Config();
-        config.setDebug(true);
-        config.put(Config.TOPOLOGY_MAX_SPOUT_PENDING, 1);
-        
-        
-        String zkConnString1 = "localhost:2181";
-        String topic1 = "trigger";
-        BrokerHosts brokerHosts1 = new ZkHosts(zkConnString1);
+        //PropertyConfigurator.configure("./src/main.java.resources/log4j.properties");
+        BasicConfigurator.configure();
 
-        SpoutConfig kafkaConfig1 = new SpoutConfig(brokerHosts1,topic1, "/"+topic1, "storm");
-        
-        kafkaConfig1.scheme = new SchemeAsMultiScheme(new StringScheme());
-        kafkaConfig1.startOffsetTime = -1;
-        
-        String zkConnString2 = "localhost:2181";
-        String topic2 = "status";
-        BrokerHosts brokerHosts2 = new ZkHosts(zkConnString2);
-
-        SpoutConfig kafkaConfig2 = new SpoutConfig(brokerHosts1,topic2, "/"+topic2, "storm");
-        
-        kafkaConfig2.scheme = new SchemeAsMultiScheme(new StringScheme());
-        kafkaConfig2.startOffsetTime = -1;
-
-
+        String zkConnString = "localhost:2181";
+        BrokerHosts brokerHosts = new ZkHosts(zkConnString);
+        // Trigger Kafka setting
+        String topicTrigger = "trigger";
+        SpoutConfig triggerConfig = new SpoutConfig(brokerHosts, topicTrigger, "/"+topicTrigger, "storm");
+        triggerConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
+        triggerConfig.startOffsetTime = -1;
+        // Status Kafka setting
+        String topicStatus = "status";
+        SpoutConfig statusConfig = new SpoutConfig(brokerHosts, topicStatus, "/"+topicStatus, "storm");
+        statusConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
+        statusConfig.startOffsetTime = -1;
+        // Build Topology
         TopologyBuilder builder = new TopologyBuilder();
-        builder.setSpout("trigger-spout", new KafkaSpout(kafkaConfig1), 10);
-        builder.setSpout("status-spout", new KafkaSpout(kafkaConfig2), 10);
-        builder.setBolt("scheduling-bolt", new SchedulingBolt()).allGrouping("trigger-spout").allGrouping("status-spout");
-        builder.setBolt("execute-code-bolt", new ExecuteCodeBolt()).allGrouping("scheduling-bolt");
-        builder.setBolt("provisioning-bolt", new ProvisioningBolt()).allGrouping("execute-code-bolt");
-        builder.setBolt("calling-kafka-bolt", new CallingKafkaBolt()).allGrouping("provisioning-bolt");
-        
-        
+        builder.setSpout("trigger-spout", new KafkaSpout(triggerConfig));
+        builder.setSpout("status-spout", new KafkaSpout(statusConfig));
+        builder.setBolt("scheduling-bolt", new SchedulingBolt())
+                .shuffleGrouping("trigger-spout");
+        builder.setBolt("status-bolt", new StatusBolt())
+                .shuffleGrouping("status-spout");
+        builder.setBolt("executing-bolt", new ExecutingBolt()).shuffleGrouping("scheduling-bolt");
+        builder.setBolt("provisioning-bolt", new ProvisioningBolt()).shuffleGrouping("executing-bolt");
+        builder.setBolt("calling-feed-bolt", new CallingFeedBolt()).shuffleGrouping("provisioning-bolt");
         LocalCluster cluster = new LocalCluster();
+
+        //BasicConfigurator.configure();
+        // Submit Topology to storm nimbus
+        Config config = new Config();
+        config.setDebug(false);
+        config.put(Config.TOPOLOGY_MAX_SPOUT_PENDING, 1);
         cluster.submitTopology("ActionTopology", config, builder.createTopology());
-        
     }
 }
