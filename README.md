@@ -60,7 +60,8 @@ Here is an example snippet from ```docker-compose.yml```:
 
     environment:
         KAFKA_CREATE_TOPICS: "Topic1:2:3,Topic2:3:1"
-```Topic 1``` will have 2 partition and 3 replicas,<br/>
+
+```Topic 1``` will have 2 partition and 3 replicas, <br>
 ```Topic 2``` will have 3 partition and 1 replica.
 
 ## Producing data

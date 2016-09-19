@@ -9,8 +9,7 @@ services:
       - SERVER_ID=1
       - ADDITIONAL_ZOOKEEPER_1=server.1=0.0.0.0:2888:3888
   nimbus:
-    image: enow/storm
-    command: nimbus -c nimbus.host=192.168.99.100
+    image: enow/storm-nimbus
     container_name: nimbus
     ports:
       - "3773:3773"
@@ -19,16 +18,14 @@ services:
     depends_on:
       - zookeeper
   supervisor:
-    image: enow/storm
-    command: supervisor -c nimbus.host=192.168.99.100 -c supervisor.slots.ports=[6700,6701,6702,6703]
+    image: enow/storm-supervisor
     container_name: supervisor
     ports:
       - "8000:8000"
     depends_on:
       - nimbus
   ui:
-    image: enow/storm
-    command: ui -c nimbus.host=192.168.99.100
+    image: enow/storm-ui
     container_name: ui
     ports:
       - "8080:8080"
