@@ -47,11 +47,11 @@ services:
       - zookeeper
     volumes:
         - /var/run/docker.sock:/var/run/docker.sock
-  topology:
-    build: ./submitter
-    command: -c nimbus.host=nimbus jar ./topology.jar com.enow.storm.main.unification Enow
-    depends_on:
-      - nimbus
+  # topology:
+  #   build: ./submitter
+  #   command: -c nimbus.host=nimbus jar ./topology.jar com.enow.storm.main.unification Enow
+  #   depends_on:
+  #     - nimbus
 networks:
   default:
     external:
