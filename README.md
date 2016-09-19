@@ -37,7 +37,7 @@ and </br>
 
 We'd recommand you to use IDE like Eclipse or IntelliJ but you can also run the test topologies locally with commands below
 
-- ```java -cp target/enow-storm-1.0.jar com.enow.storm.EnowTopology```
+- ```java -cp target/enow-storm-1.0.jar com.enow.storm.main.main```
 
 ## Running the test topologies on a storm cluster
 
