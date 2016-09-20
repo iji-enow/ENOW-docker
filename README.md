@@ -1,14 +1,19 @@
 ENOW-Docker
 ===========
 __docker-storm status__:<br>
-[![Docker Pulls](https://img.shields.io/docker/pulls/enow/storm.svg)](https://hub.docker.com/r/enow/storm/) [![Docker Stars](https://img.shields.io/docker/stars/enow/storm.svg)](https://hub.docker.com/r/enow/storm/)<br>
+[![Docker Pulls](https://img.shields.io/docker/pulls/enow/storm.svg)](https://hub.docker.com/r/enow/storm/) [![Docker Stars](https://img.shields.io/docker/stars/enow/storm.svg)](https://hub.docker.com/r/enow/storm/)
+[![](https://images.microbadger.com/badges/image/enow/storm.svg)](https://hub.docker.com/r/enow/storm/) [![](https://images.microbadger.com/badges/version/enow/storm.svg)](https://hub.docker.com/r/enow/storm/)<br>
 __docker-kafka status__:<br>
 [![Docker Pulls](https://img.shields.io/docker/pulls/enow/kafka.svg)](https://hub.docker.com/r/enow/kafka/)
-[![Docker Stars](https://img.shields.io/docker/stars/enow/kafka.svg)](https://hub.docker.com/r/enow/kafka/)<br>
+[![Docker Stars](https://img.shields.io/docker/stars/enow/kafka.svg)](https://hub.docker.com/r/enow/kafka/)
+[![](https://images.microbadger.com/badges/image/enow/kafka.svg)](https://hub.docker.com/r/enow/kafka/)
+[![](https://images.microbadger.com/badges/version/enow/kafka.svg)](https://hub.docker.com/r/enow/kafka/)<br>
 __docker-zookeeper status__:<br>
-[![Docker Pulls](https://img.shields.io/docker/pulls/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/) [![Docker Stars](https://img.shields.io/docker/stars/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/)<br>
+[![Docker Pulls](https://img.shields.io/docker/pulls/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/) [![Docker Stars](https://img.shields.io/docker/stars/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/)
+[![](https://images.microbadger.com/badges/image/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/)
+[![](https://images.microbadger.com/badges/version/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/)<br>
 Environment setup with [Docker](https://www.docker.io/)
-------------------------------
+-------------------------------
 
 If you are using a Mac follow the instructions [here](https://docs.docker.com/installation/mac/) to setup a docker environment.
 
@@ -58,8 +63,8 @@ com.enow.storm.main.main Action Trigger \
 
 But we recommand below method more.
 
-## Running the test topologies on a storm cluster
-
+Running the test topologies on a storm cluster
+----------------------------------------------
 Local topology can not communicate with other services. If you want storm to connect the others, you'd better run the test topologies on a storm cluster.
 
 - `docker-compose -p storm -f submitter.yml build`
@@ -72,8 +77,8 @@ __e.g.__ `http://<dockerIp>:8000/log?file=supervisor.log`<br>
 __e.g.__ The default `<dockerIp>` is `192.168.99.100` if you do not change anything on docker-machine.
 
 
-## Automatically create topics
-
+Automatically create topics
+---------------------------
 If you want to have kafka-docker automatically create topics in Kafka during
 creation, a `KAFKA_CREATE_TOPICS` environment variable can be
 added in `docker-compose.yml`.
@@ -86,8 +91,8 @@ environment:
 `Topic 1` will have 2 partition and 3 replicas, <br>
 `Topic 2` will have 3 partition and 1 replica.
 
-## Producing data
-
+Producing data
+--------------
 To feed the topologies with data, start the StormProducer (built in local mode)
 
 - `java -cp target/enow-storm-1.0.jar com.enow.storm.tools.StormProducer <dockerIp>:<kafkaPort>`
@@ -96,8 +101,8 @@ Alternatively use the kafka console producer from within the kafka shell (see ab
 
 - `$KAFKA_HOME/bin/kafka-console-producer.sh --broker-list <dockerIp>:<kafkaPort> --topic <kafkaTopic>`
 
-## Consuming data
-
+Consuming data
+--------------
 To run a DRPC query, start the DrpcClient (built in local mode)
 
 - `$KAFKA_HOME/bin/kafka-console-consumer.sh --zookeeper <dockerIp>:<zookeeperPort> --topic <kafkaTopic>`
@@ -105,6 +110,11 @@ To run a DRPC query, start the DrpcClient (built in local mode)
 References
 ----------
 
-Test project for enow-storm based on information provided in and referenced by:
+Test project for ENOW-docker based on information provided in and referenced by:
 
 - [https://github.com/wurstmeister/storm-kafka-0.8-plus-test](https://github.com/wurstmeister/storm-kafka-0.8-plus-test)
+- [https://github.com/wurstmeister/storm-docker](https://github.com/wurstmeister/storm-docker)
+- [https://github.com/wurstmeister/kafka-docker](https://github.com/wurstmeister/kafka-docker)
+- [https://github.com/wurstmeister/zookeeper-docker](https://github.com/wurstmeister/zookeeper-docker)
+- [https://github.com/denverdino/docker-storm](https://github.com/denverdino/docker-storm)
+- [https://github.com/Baqend/docker-storm](https://github.com/Baqend/docker-storm)
