@@ -14,6 +14,7 @@ services:
     container_name: nimbus
     environment:
       - STORM_ZOOKEEPER_SERVERS=192.168.99.100
+      - initial_delay_seconds=20
     ports:
       - "3773:3773"
       - "3772:3772"
@@ -26,7 +27,6 @@ services:
     container_name: supervisor
     environment:
       - STORM_ZOOKEEPER_SERVERS=192.168.99.100
-      - initial_delay_seconds=20
     ports:
       - "8000:8000"
     depends_on:

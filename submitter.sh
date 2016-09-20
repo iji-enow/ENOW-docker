@@ -56,8 +56,8 @@ do
     fi
 done
 if ! [ -z "$initial_delay_seconds" ]; then
-    echo "sleep: $initial_delay_seconds sec"
-    sleep "$initial_delay_seconds" 
+    echo "sleep: $initial_delay_seconds"
+    sleep "$initial_delay_seconds"
 fi
 
 #statements
