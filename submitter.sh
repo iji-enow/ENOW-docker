@@ -55,10 +55,12 @@ do
         NIMBUS_SEEDS=
     fi
 done
-initial_delay_seconds=
 if ! [ -z "$initial_delay_seconds" ]; then
-    sleep $initial_delay_seconds
+    echo "sleep: $initial_delay_seconds sec"
+    sleep "$initial_delay_seconds" 
 fi
+
+#statements
 CMD="exec bin/storm $@$NIMBUS_SEEDS$SUPERVISOR_SLOTS$HOST$ZOOKEEPER_SERVERS_ESCAPED"
 
 echo "$CMD"

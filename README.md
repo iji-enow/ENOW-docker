@@ -1,13 +1,13 @@
 ENOW-Docker
 ===========
-__docker-storm status__:<br>
+docker-storm status:<br>
 [![Docker Pulls](https://img.shields.io/docker/pulls/enow/storm.svg)](https://hub.docker.com/r/enow/storm/)
-[![](https://images.microbadger.com/badges/image/enow/storm.svg)](https://hub.docker.com/r/enow/storm/) [![](https://images.microbadger.com/badges/version/enow/storm.svg)](https://hub.docker.com/r/enow/storm/)<br>
-__docker-kafka status__:<br>
+[![](https://images.microbadger.com/badges/image/enow/storm.svg)](https://hub.docker.com/r/enow/storm/) [![](https://images.microbadger.com/badges/version/enow/storm.svg)](https://hub.docker.com/r/enow/storm/)<br><br>
+docker-kafka status:<br>
 [![Docker Pulls](https://img.shields.io/docker/pulls/enow/kafka.svg)](https://hub.docker.com/r/enow/kafka/)
 [![](https://images.microbadger.com/badges/image/enow/kafka.svg)](https://hub.docker.com/r/enow/kafka/)
-[![](https://images.microbadger.com/badges/version/enow/kafka.svg)](https://hub.docker.com/r/enow/kafka/)<br>
-__docker-zookeeper status__:<br>
+[![](https://images.microbadger.com/badges/version/enow/kafka.svg)](https://hub.docker.com/r/enow/kafka/)<br><br>
+docker-zookeeper status:<br>
 [![Docker Pulls](https://img.shields.io/docker/pulls/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/)
 [![](https://images.microbadger.com/badges/image/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/)
 [![](https://images.microbadger.com/badges/version/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/)<br>

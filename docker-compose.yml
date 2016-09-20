@@ -26,6 +26,7 @@ services:
     container_name: supervisor
     environment:
       - STORM_ZOOKEEPER_SERVERS=192.168.99.100
+      - initial_delay_seconds=20
     ports:
       - "8000:8000"
     depends_on:
@@ -60,7 +61,7 @@ services:
     command: jar ./topology.jar com.enow.storm.main.main Action Trigger -c storm.local.hostname=\"nimbus\" -c nimbus.seeds=\"[\\\"192.168.99.100\\\"]\"
     environment:
       - STORM_ZOOKEEPER_SERVERS=192.168.99.100
-      - initial_delay_seconds=20
+      - initial_delay_seconds=100
     depends_on:
       - nimbus
 networks:
