@@ -1,7 +1,12 @@
-ENOW-Storm ![travis](https://travis-ci.org/ENOW-IJI/docker.svg?branch=master) ![Maven Version](https://maven-badges.herokuapp.com/maven-central/org.apache.storm/storm-core/badge.svg)
-=========================
-
-
+ENOW-Docker
+===========
+__docker-storm status__:<br>
+[![Docker Pulls](https://img.shields.io/docker/pulls/enow/storm.svg)](https://hub.docker.com/r/enow/storm/) [![Docker Stars](https://img.shields.io/docker/stars/enow/storm.svg)](https://hub.docker.com/r/enow/storm/)<br>
+__docker-kafka status__:<br>
+[![Docker Pulls](https://img.shields.io/docker/pulls/enow/kafka.svg)](https://hub.docker.com/r/enow/kafka/)
+[![Docker Stars](https://img.shields.io/docker/stars/enow/kafka.svg)](https://hub.docker.com/r/enow/kafka/)<br>
+__docker-zookeeper status__:<br>
+[![Docker Pulls](https://img.shields.io/docker/pulls/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/) [![Docker Stars](https://img.shields.io/docker/stars/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/)<br>
 Environment setup with [Docker](https://www.docker.io/)
 ------------------------------
 
