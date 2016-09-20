@@ -61,8 +61,6 @@ services:
     environment:
       - STORM_ZOOKEEPER_SERVERS=192.168.99.100
       - initial_delay_seconds=20
-    labels:
-      initial_delay_seconds: "10"
     depends_on:
       - nimbus
 networks:

@@ -55,7 +55,7 @@ do
         NIMBUS_SEEDS=
     fi
 done
-initial_delay_seconds=10
+initial_delay_seconds=
 if ! [ -z "$initial_delay_seconds" ]; then
     sleep $initial_delay_seconds
 fi
