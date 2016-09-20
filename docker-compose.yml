@@ -1,5 +1,15 @@
 version: '2'
 services:
+  mongodb:
+    image: enow/mongodb
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+  redis:
+    image: enow/redis
+    container_name: redis
+    ports:
+      - "6379:6379"
   zookeeper:
     image: enow/zookeeper
     container_name: zookeeper
@@ -27,6 +37,7 @@ services:
     container_name: supervisor
     environment:
       - STORM_ZOOKEEPER_SERVERS=192.168.99.100
+      - initial_delay_seconds=20
     ports:
       - "8000:8000"
     depends_on:
@@ -37,6 +48,7 @@ services:
     container_name: ui
     environment:
       - STORM_ZOOKEEPER_SERVERS=192.168.99.100
+      - initial_delay_seconds=20
     ports:
       - "8080:8080"
     depends_on:
@@ -58,7 +70,7 @@ services:
   topology:
     build: .
     container_name: topology
-    command: jar ./topology.jar com.enow.storm.main.main Action Trigger -c storm.local.hostname=\"nimbus\" -c nimbus.seeds=\"[\\\"192.168.99.100\\\"]\"
+    command: jar ./topology.jar com.enow.storm.main.main Trigger Action -c storm.local.hostname=\"nimbus\" -c nimbus.seeds=\"[\\\"192.168.99.100\\\"]\"
     environment:
       - STORM_ZOOKEEPER_SERVERS=192.168.99.100
       - initial_delay_seconds=100
