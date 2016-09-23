@@ -99,6 +99,11 @@ __e.g.__ The default `<dockerIp>` is `192.168.99.100` if you do not change anyth
 
 Apache Kafka config
 -------------------
+#### Scale out brokers
+Add more brokers:
+```
+    docker-compose scale kafka=3
+```
 #### Automatically create topics
 
 If you want to have kafka-docker automatically create topics in Kafka during
