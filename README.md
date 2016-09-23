@@ -1,4 +1,4 @@
-ENOW-Docker
+Docker for ENOW Project
 ===========
 docker-storm status:<br>
 [![Docker Pulls](https://img.shields.io/docker/pulls/enow/storm.svg)](https://hub.docker.com/r/enow/storm/)
@@ -129,7 +129,7 @@ If you have no idea about Docker Swarm, follow this tutorial below url.
 References
 ----------
 
-Test project for ENOW-docker based on information provided in and referenced by:
+Docker repository for ENOW based on information provided in and referenced by:
 
 - [https://github.com/wurstmeister/storm-kafka-0.8-plus-test](https://github.com/wurstmeister/storm-kafka-0.8-plus-test)
 - [https://github.com/wurstmeister/storm-docker](https://github.com/wurstmeister/storm-docker)
