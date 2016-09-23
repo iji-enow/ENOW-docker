@@ -17,7 +17,6 @@ Environment setup with [Docker](https://www.docker.io/)
 If you are using a Mac follow the instructions [here](https://docs.docker.com/installation/mac/) to setup a docker environment.
 
 - Install [docker-compose](http://docs.docker.com/compose/install/)
-
 - Install [storm](https://storm.incubator.apache.org/downloads.html) (so you can upload your topology to the test cluster)
 - Create the custom test network for Apache Storm
     - `docker network create storm`
@@ -29,29 +28,28 @@ If you are using a Mac follow the instructions [here](https://docs.docker.com/in
     KAFKA_CREATE_TOPICS: "test:3:1"
 ```
 
-- When the storm topology can not follow and find the nimbus seeds that is a little bit slow to start try to change the `initial_delay_seconds` below longer in topology of `docker-compose.yml`:
+- When the storm topology can not follow and find the nimbus seeds that is a little bit slow to start you would try this to change the `initial_delay_seconds` below longer in topology of `docker-compose.yml`:
 ```yaml
 enviroment:
     - initial_delay_seconds=20
 ```
-e.g. initial_delay_seconds: "10" to "30"
 
 For more details and troubleshooting see:
 - [https://github.com/enow/docker-kafka](https://github.com/enow/docker-kafka) </br>
 and </br>
 - [https://github.com/enow/docker-storm](https://github.com/enow/docker-storm)
 
-## Build for running locally:
+##### Build for running locally:
 
 - `mvn clean package`
 
-## Build for running on a Storm cluster:
+##### Build for running on a Storm cluster:
 
 - `mvn clean package -P cluster`
 
-## Running the test topologies locally
+##### Running the test topologies locally
 
-We'd recommand you to use IDE like Eclipse or IntelliJ but you can also run the test topologies locally with commands below:
+We'd recommend you to use IDE like Eclipse or IntelliJ but you can also run the test topologies locally with commands below:
 
 ```bash
 java -cp target/enow-storm-1.0.jar \
@@ -60,10 +58,18 @@ com.enow.storm.main.main Action Trigger \
 -c nimbus.seeds=\"[\\\"192.168.99.100\\\"]\"
 ```
 
-But we recommand below method more.
+But we recommend below method more.
 
-Running the test topologies on a storm cluster
-----------------------------------------------
+Apache Storm config
+-------------------
+##### Scale out supervisors
+
+You can start more than one supervisors with following command, e.g. for 3 instances.
+```
+docker-compose scale supervisor=3
+```
+##### Running the test topologies on a storm cluster
+
 Local topology can not communicate with other services. If you want storm to connect the others, you'd better run the test topologies on a storm cluster.
 
 - `docker-compose -p storm -f submitter.yml build`
@@ -75,9 +81,10 @@ The Logviewer will be available under: `http://<dockerIp>:8000/` <br>
 __e.g.__ `http://<dockerIp>:8000/log?file=supervisor.log`<br>
 __e.g.__ The default `<dockerIp>` is `192.168.99.100` if you do not change anything on docker-machine.
 
+Apache Kafka config
+-------------------
+##### Automatically create topics
 
-Automatically create topics
----------------------------
 If you want to have kafka-docker automatically create topics in Kafka during
 creation, a `KAFKA_CREATE_TOPICS` environment variable can be
 added in `docker-compose.yml`.
@@ -90,21 +97,34 @@ environment:
 `Topic 1` will have 2 partition and 3 replicas, <br>
 `Topic 2` will have 3 partition and 1 replica.
 
-Producing data
---------------
-To feed the topologies with data, start the StormProducer (built in local mode)
+##### Producing data
 
-- `java -cp target/enow-storm-1.0.jar com.enow.storm.tools.StormProducer <dockerIp>:<kafkaPort>`
-
-Alternatively use the kafka console producer from within the kafka shell (see above)
+Use the kafka console producer from within the kafka shell (see below)
 
 - `$KAFKA_HOME/bin/kafka-console-producer.sh --broker-list <dockerIp>:<kafkaPort> --topic <kafkaTopic>`
 
-Consuming data
---------------
-To run a DRPC query, start the DrpcClient (built in local mode)
+##### Consuming data
+
+Use the kafka console consumer from within the kafka shell (see below)
 
 - `$KAFKA_HOME/bin/kafka-console-consumer.sh --zookeeper <dockerIp>:<zookeeperPort> --topic <kafkaTopic>`
+
+Apache Zookeeper config
+-----------------------
+##### Remote Zookeeper server
+
+If you would like to use remote Zookeeper server instead of local.
+You'd better use Docker Swarm and this below url is one of the examples.
+
+[https://github.com/Baqend/tutorial-swarm-storm](https://github.com/Baqend/tutorial-swarm-storm)
+
+FYI, The basic configuration is same as zookeeper setting on `docker-compose.yml` but if you would like to build multiple zookeeper server, see below repository as a reference.
+
+[https://github.com/denverdino/docker-storm](https://github.com/denverdino/docker-storm)
+
+If you have no idea about Docker Swarm, follow this tutorial below url.
+
+[https://docs.docker.com/engine/swarm/swarm-tutorial](https://docs.docker.com/engine/swarm/swarm-tutorial/)
 
 References
 ----------
