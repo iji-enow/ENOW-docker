@@ -65,9 +65,25 @@ Apache Storm config
 #### Scale out supervisors
 
 You can start more than one supervisors with following command, e.g. for 3 instances.
+
 ```
 docker-compose scale supervisor=3
 ```
+
+And if you would like to use different instance or computer for supervisor, use below `docker-compose.yml` for create and connect, e.g. for for 3 zookeeper server.
+
+```yaml
+supervisor:
+  image: enow/storm
+  command: supervisor -c storm.local.hostname=\"nimbus\" -c nimbus.seeds=\"[\\\"<nimbus_host>\\\"]\" -c supervisor.slots.ports=\"[6700,6701,6702,6703]\"
+  container_name: supervisor
+  environment:
+    - STORM_ZOOKEEPER_SERVERS=<zk_server1>,<zk_server2>,<zk_server3>
+    - initial_delay_seconds=20
+  ports:
+    - "8000:8000"
+```
+
 #### Running the test topologies on a storm cluster
 
 Local topology can not communicate with other services. If you want storm to connect the others, you'd better run the test topologies on a storm cluster.
