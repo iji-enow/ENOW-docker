@@ -39,15 +39,15 @@ For more details and troubleshooting see:
 and </br>
 - [https://github.com/enow/docker-storm](https://github.com/enow/docker-storm)
 
-##### Build for running locally:
+#### Build for running locally:
 
 - `mvn clean package`
 
-##### Build for running on a Storm cluster:
+#### Build for running on a Storm cluster:
 
 - `mvn clean package -P cluster`
 
-##### Running the test topologies locally
+#### Running the test topologies locally
 
 We'd recommend you to use IDE like Eclipse or IntelliJ but you can also run the test topologies locally with commands below:
 
@@ -62,13 +62,13 @@ But we recommend below method more.
 
 Apache Storm config
 -------------------
-##### Scale out supervisors
+#### Scale out supervisors
 
 You can start more than one supervisors with following command, e.g. for 3 instances.
 ```
 docker-compose scale supervisor=3
 ```
-##### Running the test topologies on a storm cluster
+#### Running the test topologies on a storm cluster
 
 Local topology can not communicate with other services. If you want storm to connect the others, you'd better run the test topologies on a storm cluster.
 
@@ -83,7 +83,7 @@ __e.g.__ The default `<dockerIp>` is `192.168.99.100` if you do not change anyth
 
 Apache Kafka config
 -------------------
-##### Automatically create topics
+#### Automatically create topics
 
 If you want to have kafka-docker automatically create topics in Kafka during
 creation, a `KAFKA_CREATE_TOPICS` environment variable can be
@@ -97,13 +97,13 @@ environment:
 `Topic 1` will have 2 partition and 3 replicas, <br>
 `Topic 2` will have 3 partition and 1 replica.
 
-##### Producing data
+#### Producing data
 
 Use the kafka console producer from within the kafka shell (see below)
 
 - `$KAFKA_HOME/bin/kafka-console-producer.sh --broker-list <dockerIp>:<kafkaPort> --topic <kafkaTopic>`
 
-##### Consuming data
+#### Consuming data
 
 Use the kafka console consumer from within the kafka shell (see below)
 
@@ -111,7 +111,7 @@ Use the kafka console consumer from within the kafka shell (see below)
 
 Apache Zookeeper config
 -----------------------
-##### Remote Zookeeper server
+#### Remote Zookeeper server
 
 If you would like to use remote Zookeeper server instead of local.
 You'd better use Docker Swarm and this below url is one of the examples.
