@@ -30,7 +30,7 @@ If you are using a Mac follow the instructions [here](https://docs.docker.com/in
 
 - When the storm topology can not follow and find the nimbus seeds that is a little bit slow to start you would try this to change the `initial_delay_seconds` below longer in topology of `docker-compose.yml`:
 ```yaml
-enviroment:
+  enviroment:
     - initial_delay_seconds=20
 ```
 
@@ -66,8 +66,8 @@ Apache Storm config
 
 You can start more than one supervisors with following command, e.g. for 3 instances.
 
-```
-docker-compose scale supervisor=3
+```bash
+    $ docker-compose scale supervisor=3
 ```
 
 And if you would like to use different instance or computer for supervisor, use below `docker-compose.yml` for create and connect, e.g. for for 3 zookeeper server.
@@ -101,8 +101,8 @@ Apache Kafka config
 -------------------
 #### Scale out brokers
 Add more brokers:
-```
-    docker-compose scale kafka=3
+```bash
+    $ docker-compose scale kafka=3
 ```
 #### Automatically create topics
 
@@ -112,7 +112,7 @@ added in `docker-compose.yml`.
 
 Here is an example snippet from `docker-compose.yml`:
 ```yaml
-environment:
+  environment:
     KAFKA_CREATE_TOPICS: "Topic1:2:3,Topic2:3:1"
 ```
 `Topic 1` will have 2 partition and 3 replicas, <br>
