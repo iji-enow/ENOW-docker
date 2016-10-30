@@ -12,6 +12,16 @@ docker-zookeeper status:<br>
 [![](https://images.microbadger.com/badges/image/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/)
 [![](https://images.microbadger.com/badges/version/enow/zookeeper.svg)](https://hub.docker.com/r/enow/zookeeper/)<br>
 Environment setup with [Docker](https://www.docker.io/)
+```
+███████╗███╗   ██╗ ██████╗ ██╗    ██╗                       ##         .
+██╔════╝████╗  ██║██╔═══██╗██║    ██║                 ## ## ##        ==
+█████╗  ██╔██╗ ██║██║   ██║██║ █╗ ██║              ## ## ## ## ##    ===
+██╔══╝  ██║╚██╗██║██║   ██║██║███╗██║          /"""""""""""""""""\___/ ===
+███████╗██║ ╚████║╚██████╔╝╚███╔███╔╝ ~~~ ~~~ {~~ ~~~~ ~~~ ~~~~ ~~~ ~ /  ===- ~~~
+╚══════╝╚═╝  ╚═══╝ ╚═════╝  ╚══╝╚══╝           \______ o           __/
+ENOW-Docker Version 0.0.1                         \    \         __/
+Copyright © 2016 ENOW. All rights reserved.        \____\_______/
+```
 -------------------------------
 
 If you are using a Mac follow the instructions [here](https://docs.docker.com/installation/mac/) to setup a docker environment.
