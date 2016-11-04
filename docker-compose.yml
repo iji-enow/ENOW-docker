@@ -23,7 +23,7 @@ services:
     command: nimbus -c storm.local.hostname=\"nimbus\" -c nimbus.seeds=\"[\\\"192.168.99.100\\\"]\"
     container_name: nimbus
     environment:
-      - STORM_ZOOKEEPER_SERVERS=192.168.99.100
+      - STORM_ZOOKEEPER_SERVERS=zookeeper
       - initial_delay_seconds=20
     ports:
       - "3773:3773"
@@ -36,7 +36,7 @@ services:
     command: supervisor -c storm.local.hostname=\"nimbus\" -c nimbus.seeds=\"[\\\"192.168.99.100\\\"]\" -c supervisor.slots.ports=\"[6700,6701,6702,6703]\"
     container_name: supervisor
     environment:
-      - STORM_ZOOKEEPER_SERVERS=192.168.99.100
+      - STORM_ZOOKEEPER_SERVERS=zookeeper
       - initial_delay_seconds=20
     ports:
       - "8000:8000"
@@ -47,7 +47,7 @@ services:
     command: ui -c storm.local.hostname=\"nimbus\" -c nimbus.seeds=\"[\\\"192.168.99.100\\\"]\"
     container_name: ui
     environment:
-      - STORM_ZOOKEEPER_SERVERS=192.168.99.100
+      - STORM_ZOOKEEPER_SERVERS=zookeeper
       - initial_delay_seconds=20
     ports:
       - "8080:8080"
@@ -70,10 +70,10 @@ services:
   topology:
     build: .
     container_name: topology
-    command: jar ./topology.jar com.enow.storm.main.RemoteSubmitter Trigger Action -c storm.local.hostname=\"nimbus\" -c nimbus.seeds=\"[\\\"192.168.99.100\\\"]\"
+    command: jar ./topology.jar com.enow.storm.main.DockerSubmitter Trigger Action -c storm.local.hostname=\"nimbus\" -c nimbus.seeds=\"[\\\"192.168.99.100\\\"]\"
     environment:
-      - STORM_ZOOKEEPER_SERVERS=192.168.99.100
-      - initial_delay_seconds=100
+      - STORM_ZOOKEEPER_SERVERS=zookeeper
+      - initial_delay_seconds=80
     depends_on:
       - nimbus
 networks:
