@@ -73,7 +73,7 @@ services:
     command: jar ./topology.jar com.enow.storm.main.DockerSubmitter Trigger Action -c storm.local.hostname=\"nimbus\" -c nimbus.seeds=\"[\\\"192.168.99.100\\\"]\"
     environment:
       - STORM_ZOOKEEPER_SERVERS=zookeeper
-      - initial_delay_seconds=80
+      - initial_delay_seconds=88
     depends_on:
       - nimbus
 networks:
